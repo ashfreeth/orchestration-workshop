@@ -19,8 +19,9 @@ services:
     - "./webui/files/:/files/"
 
   redis:
-    image: redis
+    image: brunswickheads/redis-2.8.19-s390x
+    ports:
+    - "6379:6379"
 
   worker:
     build: worker
-

@@ -1,5 +1,4 @@
-FROM ruby:alpine
-RUN apk add --update build-base
+FROM s390x/ruby
 RUN gem install sinatra
 RUN gem install thin
 ADD hasher.rb /
