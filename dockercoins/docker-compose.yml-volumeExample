@@ -1,0 +1,37 @@
+version: "2"
+
+services:
+  rng:
+    build: rng
+    ports:
+    - "8001:80"
+
+  hasher:
+    build: hasher
+    ports:
+    - "8002:80"
+
+  webui:
+    build: webui
+    ports:
+    - "8000:80"
+    volumes:
+    - "./webui/files/:/files/"
+
+  redis:
+    image: brunswickheads/redis-2.8.19-s390x
+    ports:
+    - "6379:6379"
+    volumes:
+    - "redis-data:/var/lib/redis"
+    command: redis-server --dir /var/lib/redis --port 6379 --save 10 1
+
+  worker:
+    build: worker
+
+volumes:
+  redis-data:
+    driver: local
+    driver_opts:
+      type: ext4
+      device: /dev/mapper/mpatha
